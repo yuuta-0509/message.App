@@ -8,9 +8,7 @@ var output = document.getElementById('output');
 selectElement.addEventListener("change", function() {
     cityId = selectElement.value || cityId;
     async function getWeather () {
-        var apiUrl = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&lang=ja&appid=${apiKey}`;
-        // var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&units=metric&appid=acc9f6f6be519024f4a688d4b9610816`;
-
+        var apiUrl = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&lang=ja&appid=${apiKey}`;
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
