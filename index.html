@@ -3,14 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Application</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
+  <title>open weather map api</title>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-box"></div>
-    <input type="text" id="message-input" placeholder="メッセージを入力" />
-    <button id="send-button">送信</button>
+  <div id="all">
+    <div class="responsive">
+      <div class="result-div">
+        <div>
+          <h2>現在の<span id="cityName"></span>の気温は<span id="tempValue"></span>℃</h2>
+          <h2>天気は<span id="weatherValue"></span>です</h2>
+        </div>
+      </div>
+      <div class="select-div">
+        <div>
+          <label for="pet-select">検索する地域を選択</label>
+          <select name="pets" id="pet-select">
+            <option value="">地域を選択してください</option>
+            <option value="1850147">東京</option>
+            <option value="1853909">大阪</option>
+            <option value="1856057">名古屋</option>
+            <option value="2128295">札幌</option>
+            <option value="1863967">福岡</option>
+            <option value="1862415">広島</option>
+            <option value="2111149">仙台</option>
+            <option value="1857910">京都</option>
+            <option value="1859171">神戸</option>
+            <option value="1860291">川崎</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="app.js"></script>
 </body>
