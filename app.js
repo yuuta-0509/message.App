@@ -36,7 +36,7 @@ selectElement.addEventListener("change", function() {
             console.log(data);
             output.innerHTML = 
             '<p>現在の: ' + areaResult + 'の気温は' + tempResult + '℃</p>' +
-            '<p>天気は: ' + translatedWeather + ' °Cです</p>';
+            '<p>天気は: ' + translatedWeather + ' です</p>';
         } catch (error) {
             console.error('Error fetching the weather data:', error);
         }
