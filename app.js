@@ -46,3 +46,8 @@ selectElement.addEventListener("change", function() {
 
         // var apiUrl = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&appid=${apiKey}`;
 
+var button = document.getElementById('button');
+var image = document.getElementById('image-div');
+button.addEventListener('click',function(){
+    image.style.display = 'block';
+})
