@@ -5,6 +5,7 @@ var tempPush = document.getElementById('tempValue');
 var weatherPush = document.getElementById('weatherValue');
 var selectElement = document.getElementById("map-select");
 var output = document.getElementById('output');
+var iconImage = document.getElementById('icon');
 selectElement.addEventListener("change", function() {
     cityId = selectElement.value || cityId;
     async function getWeather () {
@@ -13,6 +14,7 @@ selectElement.addEventListener("change", function() {
             const response = await fetch(apiUrl);
             const data = await response.json();
             const weatherResult = await data.weather[0].main;
+            const weatherIcon = await data.weather[0].icon;
             const weatherTranslations = {
                 Thunderstorm: '雷雨',
                 Drizzle: '霧雨',
@@ -33,21 +35,15 @@ selectElement.addEventListener("change", function() {
             const translatedWeather = weatherTranslations[weatherResult] || weatherResult;
             const areaResult = await data.name;
             const tempResult = await data.main.temp;
+            const iconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`
             console.log(data);
             output.innerHTML = 
-            '<p>現在の: ' + areaResult + 'の気温は' + tempResult + '℃</p>' +
-            '<p>天気は: ' + translatedWeather + ' °Cです</p>';
+            '<p>現在の ' + areaResult + 'の気温は' + tempResult + '℃</p>' +
+            '<p>天気は ' + translatedWeather + 'です</p>';
+            iconImage.src = iconUrl;
         } catch (error) {
             console.error('Error fetching the weather data:', error);
         }
     }
     getWeather();
 });
-
-        // var apiUrl = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&appid=${apiKey}`;
-
-var button = document.getElementById('button');
-var image = document.getElementById('image-div');
-button.addEventListener('click',function(){
-    image.style.display = 'block';
-})
