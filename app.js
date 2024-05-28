@@ -8,6 +8,8 @@ var output = document.getElementById('output');
 var iconImage = document.getElementById('icon');
 selectElement.addEventListener("change", function() {
     cityId = selectElement.value || cityId;
+    var result = document.getElementById('resultDiv');
+    result.style.border = 'solid 1px blue'
     async function getWeather () {
         var apiUrl = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&lang=ja&appid=${apiKey}`;
         try {
