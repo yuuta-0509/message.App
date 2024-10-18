@@ -1,16 +1,35 @@
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, (err) => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
+
+
 
 const apiKey = 'acc9f6f6be519024f4a688d4b9610816';
 var selectElement = document.getElementById("map-select");
 var output = document.getElementById('output');
 var iconImage = document.getElementById('icon');
-var loadingSpinner = document.getElementById('loading');
+var result = document.getElementById('resultDiv');
+var saveLocationButton = document.getElementById('save-location-button');
+var saveLocationComment = document.getElementById('save-location-comment')
+
+window.onload = function() {
+    const savedLocation = localStorage.getItem('savedLocation');
+    if (savedLocation) {
+        const savedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${savedLocation}&units=metric&lang=ja&appid=${apiKey}`;
+        getWeather(savedWeatherUrl);
+    }
+};
 
 selectElement.addEventListener("change", function() {
     var selectedValue = selectElement.value;
-    var result = document.getElementById('resultDiv');
     result.style.border = 'solid 1px blue';
-    
-    loadingSpinner.style.display = 'block';
     
     if (selectedValue === "currentLocation") {
         getCurrentLocationWeather();
@@ -54,12 +73,16 @@ async function getWeather(apiUrl) {
         `<p>現在の ${areaResult} の気温は ${tempResult}℃</p>` +
         `<p>天気は ${translatedWeather} です</p>`;
         iconImage.src = iconUrl;
+        saveLocationButton.style.display = 'block';
+        saveLocationComment.style.display = "block";
+        saveLocationButton.onclick = function() {
+            localStorage.setItem('savedLocation', areaResult); 
+            alert(`${areaResult} が保存されました。`);
+        };
     } catch (error) {
         console.error('Error fetching the weather data:', error);
         output.innerHTML = '<p>天気情報を取得できませんでした。再度お試しください。</p>';
-    } finally {
-        loadingSpinner.style.display = 'none';
-    }
+    } 
 }
 
 function getWeatherByCityId(cityId) {
@@ -83,11 +106,25 @@ function getCurrentLocationWeather() {
             },
             function(error) {
                 console.error('Error fetching current location:', error);
-                loadingSpinner.style.display = 'none';
             }
         );
     } else {
         console.error('Geolocation is not supported by this browser.');
-        loadingSpinner.style.display = 'none';
     }
+}
+const searchButton = document.getElementById('searchButton');
+searchButton.addEventListener('click', function() {
+    var cityName = document.getElementById('cityInput').value.trim();
+    if (cityName !== "") {
+        var cityNameInRomaji = wanakana.toRomaji(cityName); 
+        getWeatherByCityName(cityNameInRomaji);
+        console.log(cityNameInRomaji)
+    } else {
+        alert('都市名を入力してください');
+    }
+});
+
+function getWeatherByCityName(cityName) {
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&lang=ja&appid=${apiKey}`;
+    getWeather(apiUrl);
 }

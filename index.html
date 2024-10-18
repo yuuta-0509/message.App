@@ -8,37 +8,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
   <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="/manifest.json">
   <title>open weather map api</title>
 </head>
 <body>
   <div id="all">
     <div class="responsive">
-      <div class="select-div">
-        <div>
-          <label for="map-select">検索する地域を選択</label>
-          <select name="pets" id="map-select">
-            <option value="">地域を選択してください</option>
-            <option value="currentLocation">現在地</option>
-            <option value="1850147">東京</option>
-            <option value="1853909">大阪</option>
-            <option value="1856057">名古屋</option>
-            <option value="2128295">札幌</option>
-            <option value="1863967">福岡</option>
-            <option value="1862415">広島</option>
-            <option value="2111149">仙台</option>
-            <option value="1857910">京都</option>
-            <option value="1859171">神戸</option>
-            <option value="1860291">川崎</option>
-            <option value="latlon,35.9012911,139.6248506">大宮*</option>
-            <option value="latlon,35.916361,139.4168708">川越*</option>
-          </select>
+      <div class="selectBox">
+        <div class="select-div">
+          <div>
+            <label for="map-select">検索する地域を選択</label>
+            <select name="pets" id="map-select">
+              <option value="">地域を選択してください</option>
+              <option value="currentLocation">現在地</option>
+              <option value="1850147">東京</option>
+              <option value="1853909">大阪</option>
+              <option value="1856057">名古屋</option>
+              <option value="2128295">札幌</option>
+              <option value="1863967">福岡</option>
+              <option value="1862415">広島</option>
+              <option value="2111149">仙台</option>
+              <option value="1857910">京都</option>
+              <option value="1859171">神戸</option>
+              <option value="1860291">川崎</option>
+              <option value="latlon,35.9012911,139.6248506">大宮*</option>
+              <option value="latlon,35.916361,139.4168708">川越*</option>
+            </select>
+          </div>
+          <div>
+            <p>*はその地域から最寄りの観測所からの情報を表示します</p>
+          </div>
+          <div>
+            <p>選択肢以外の地域を検索</p>
+            <input type="text" id="cityInput" placeholder="地名を入力">
+            <button id="searchButton">検索</button>
+            <p>※地名は平仮名で入力してください</p>
+          </div>
         </div>
-        <div>
-          <p>*はその地域から最寄りの観測所からの情報を表示します</p>
-        </div>
-      </div>
-      <div class="loading-div" id="loading">
-        <div id="loading" class="loading-spinner"></div>
       </div>
       <div class="result-div" >
         <div class="result" id="resultDiv">
@@ -47,10 +53,16 @@
           <div class="icon-div">
             <img src="" alt="" id="icon">
           </div>
+          <button id="save-location-button" style="display:none;">この地域を保存する</button>
+          <p id="save-location-comment" style="display: none; font-size: 12px;">※次回以降アプリ起動時に天気情報を表示します</p>
         </div>
+
       </div>
     </div>
   </div>
+  <script src="service-worker.js"></script>
+  <script src="https://unpkg.com/wanakana"></script>
   <script src="app.js"></script>
+
 </body>
 </html>
